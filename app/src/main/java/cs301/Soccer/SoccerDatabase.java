@@ -15,7 +15,7 @@ import java.util.*;
 public class SoccerDatabase implements SoccerDB {
 
     // dummied up variable; you will need to change this
-    private Hashtable database;
+    private Hashtable<String, SoccerPlayer> database;
 
     /**
      * add a player
@@ -25,7 +25,15 @@ public class SoccerDatabase implements SoccerDB {
     @Override
     public boolean addPlayer(String firstName, String lastName,
                              int uniformNumber, String teamName) {
-        return false;
+        String key = firstName + " ## " + lastName;
+        if (database.get(key) != null){
+            return false;
+        }
+        else {
+            SoccerPlayer player = new SoccerPlayer(firstName, lastName, uniformNumber, teamName);
+            database.put(key,player);
+            return true;
+        }
     }
 
     /**
@@ -45,7 +53,8 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public SoccerPlayer getPlayer(String firstName, String lastName) {
-        return null;
+        String key = firstName + " ## " + lastName;
+        return database.get(key);
     }
 
     /**
